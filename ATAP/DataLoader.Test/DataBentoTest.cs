@@ -5,8 +5,10 @@
 namespace DataLoader.Test;
 
 using DataLoader;
+using DataLoader.DTO;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 /// <summary>
 /// Test data bento loading.
@@ -14,9 +16,29 @@ using Xunit.Abstractions;
 /// <param name="output">Test output helper.</param>
 public class DataBentoTest(ITestOutputHelper output)
 {
-    private const string FilePath = @"C:\\Users\\rayfi\\Downloads\\NDEX-20260103-KUUQF8V6AA\Tfm1Yearohlcv-1d.csv";
-    private const string SnippetPath = @"C:\\Users\\rayfi\\Downloads\\NDEX-20260103-KUUQF8V6AA\ohlcv-snippet.csv";
+    private const string FilePath = @"C:\\MyData\Tfm1Yearohlcv-1d.csv";
+    private const string SnippetPath = @"C:\\MyData\ohlcv-snippet.csv";
     private const string SnippetFileName = "ohlcv-snippet.csv";
+
+    /// <summary>
+    /// Convert snippet to dtos.
+    /// </summary>
+    /// <exception cref="Exception">Failed to load.</exception>
+    [Fact]
+    public void TestConvertSnippetToStandardDtos()
+    {
+        this.ConvertToStandardDtos(GetAbsoluteFilePath(SnippetFileName));
+    }
+
+    /// <summary>
+    /// Convert all records to dtos.
+    /// </summary>
+    /// <exception cref="Exception">Failed to load.</exception>
+    [Fact]
+    public void TestConvertToStandardDtos()
+    {
+        this.ConvertToStandardDtos(FilePath);
+    }
 
     /// <summary>
     /// Test reading file snippet.
@@ -120,6 +142,19 @@ public class DataBentoTest(ITestOutputHelper output)
         else
         {
             output.WriteLine($"Filepath {filePath} is not found so no error thrown on record count.", OutputLevel.Warning);
+        }
+    }
+
+    private void ConvertToStandardDtos(string filePath)
+    {
+        if (TryGetRecordsFromAbsoluteFilePath(filePath, out var records))
+        {
+            output.WriteLine("Got records.");
+            List<Ohlcv> converted = [.. records.Select(r => DataBentoConverter.ConvertOhlcv(r))];
+        }
+        else
+        {
+            throw new Exception("Failed to load records.");
         }
     }
 }
