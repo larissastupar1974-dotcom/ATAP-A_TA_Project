@@ -13,13 +13,15 @@ using CsvHelper;
 public static class ReadCsv
 {
     /// <summary>
-    /// Read.
+    /// Read from path to DataBentoOhlcv.
     /// </summary>
-    public static void Read()
+    /// <param name="path">File path.</param>
+    /// <returns>Records.</returns>
+    public static IReadOnlyList<DataBentoOhlcv> ReadDataBentoOhlcv(string path)
     {
-        string path = @"C:\\Users\\rayfi\\Downloads\\NDEX-20260103-KUUQF8V6AA\Tfm1Yearohlcv-1d.csv";
-        using var reader = new StreamReader(path);
-        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-        var records = csv.GetRecords<dynamic>();
+        using StreamReader reader = new(path);
+        using CsvReader csv = new(reader, CultureInfo.InvariantCulture);
+        var records = csv.GetRecords<DataBentoOhlcv>();
+        return [..records];
     }
 }
