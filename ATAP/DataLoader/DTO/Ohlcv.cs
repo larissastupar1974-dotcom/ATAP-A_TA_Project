@@ -8,7 +8,7 @@ namespace DataLoader.DTO;
 /// Open High Low Close Volume.
 /// Copied off DataBento but with typing.
 /// </summary>
-internal class Ohlcv
+public class Ohlcv
 {
     /// <summary>
     /// Gets the timestamp of the event.

@@ -8,4 +8,4 @@ namespace Core;
 /// Time series class.
 /// </summary>
 /// <param name="Values">Data points.</param>
-internal record TimeSeries(IReadOnlyList<DataPoint> Values);
+public record TimeSeries(string Name, IReadOnlyList<DataPoint> Values);

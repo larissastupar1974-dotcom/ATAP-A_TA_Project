@@ -6,6 +6,7 @@ namespace DataLoader.Test;
 
 using DataLoader;
 using DataLoader.DTO;
+using DataLoader.Dto.InputDto;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -27,7 +28,7 @@ public class DataBentoTest(ITestOutputHelper output)
     [Fact]
     public void TestConvertSnippetToStandardDtos()
     {
-        this.ConvertToStandardDtos(GetAbsoluteFilePath(SnippetFileName));
+        this.ConvertToStandardDtosSnippet();
     }
 
     /// <summary>
@@ -101,6 +102,24 @@ public class DataBentoTest(ITestOutputHelper output)
             string expectedError = "Assert.Equal() Failure: Values differ\r\nExpected: 37\r\nActual:   3";
             Assert.True(ex.Message == expectedError);
         }
+    }
+
+    /// <summary>
+    /// Snippet to standard ohlcv.
+    /// </summary>
+    /// <returns>List of ohlcv.</returns>
+    public List<Ohlcv> ConvertToStandardDtosSnippet()
+    {
+        return this.ConvertToStandardDtos(GetAbsoluteFilePath(SnippetFileName));
+    }
+
+    /// <summary>
+    /// File to standard ohlcv.
+    /// </summary>
+    /// <returns>List of ohlcv.</returns>
+    public List<Ohlcv> ConvertToStandardDtosFile()
+    {
+        return this.ConvertToStandardDtos(FilePath);
     }
 
     /// <summary>

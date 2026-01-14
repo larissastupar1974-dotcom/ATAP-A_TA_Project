@@ -2,7 +2,7 @@
 // Copyright (c) LarissaStupar1974. All rights reserved.
 // </copyright>
 
-namespace DataLoader.DTO;
+namespace DataLoader.Dto.InputDto;
 
 /// <summary>
 /// Data schema for DataBento OHLCV https://databento.com/.

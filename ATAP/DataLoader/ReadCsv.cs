@@ -6,7 +6,7 @@ namespace DataLoader;
 
 using System.Globalization;
 using CsvHelper;
-using DataLoader.DTO;
+using DataLoader.Dto.InputDto;
 
 /// <summary>
 /// Read csv.
